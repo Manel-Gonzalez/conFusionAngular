@@ -1,7 +1,8 @@
 $lt-gray: #ddd;
+$background-moredark:#275a25;
 $background-dark: #2f6e2d;
 $background-light: #87d184;
-$background-pale: #9ae48c;
+$background-pale: #87d184;
 
 @mixin zero-margin($pad-up-down, $pad-left-right) {
     margin: 0px auto;
@@ -13,4 +14,11 @@ $background-pale: #9ae48c;
     background: $background-light ;
     color:floralwhite;
     min-height: 150px;
+}
+.toolbarHeader{
+    background: $background-dark;
+}
+
+.active {
+    background: $background-moredark;
 }
