@@ -13,6 +13,10 @@ $background-pale: #87d184;
     @include zero-margin(20px, 0px);
 }
 
+.footerText{
+    color: black;
+}
+
 .btn-facebook {color:#fff!important; background-color:#3b5998!important;}
 .btn-google-plus{color:#fff!important;background-color:#dd4b39!important;}
 .btn-youtube{color:#fff!important;background-color:#ff4b39!important;}
