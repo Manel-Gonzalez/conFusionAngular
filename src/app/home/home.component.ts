@@ -23,16 +23,18 @@ export class HomeComponent implements OnInit {
     private promotionService: PromotionService,
     private leaderService:LeaderService) { }
 
-  ngOnInit() {
+  showSpinner =true;
 
+  ngOnInit() {
+ 
     this.dishService.getFeaturedDish()
-    .then(dishes => this.dish = dishes)
+    .subscribe(dishes => this.dish = dishes)
 
     this.promotionService.getFeaturedPromotion()
-    .then( promotion=> this.promotion = promotion)
+    .subscribe( promotion=> this.promotion = promotion)
 
     this.leaderService.getFeaturedLeader()
-    .then(leader => this.leader = leader)
+    .subscribe(leader => this.leader = leader)
   }
 
 

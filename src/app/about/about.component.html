@@ -63,8 +63,10 @@
         <h2 matLine class="leadersText">{{leader.designation}}</h2>
         <p matLine class="leadersText"> {{leader.description}}</p>  
       </mat-list-item>
+      <div [hidden]="!leaders">
+        <mat-spinner></mat-spinner><h4>Loading . . . Please Wait</h4>
+      </div>
     </mat-list>
-  </div>
 
-  
+  </div>
 </div>

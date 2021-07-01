@@ -9,6 +9,8 @@ import { DishService } from '../services/dish.service';
 })
 export class MenuComponent implements OnInit {
 
+  showSpinner =true;
+
   dishes: Dish[] = [];
 
   selectedDish: Dish = new Dish;
@@ -17,10 +19,11 @@ export class MenuComponent implements OnInit {
 
   ngOnInit(): void {
     this.dishService.getDishes()
-    .then((dishes) => this.dishes = dishes);
+    .subscribe((dishes) => this.dishes = dishes);
   }
 
   onSelect(dish:Dish){
     this.selectedDish= dish;
+    this.showSpinner = false
   }
 }
