@@ -4,6 +4,6 @@ export class Leader {
     image!: string;
     designation!: string;
     abbr!: string;
-    featured!: boolean;
+    featured: boolean = true;
     description!: string;
 }

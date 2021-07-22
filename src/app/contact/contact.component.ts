@@ -1,16 +1,30 @@
-import { Component, OnInit ,ViewChild} from '@angular/core';
-
+import { Component, OnInit , ViewChild, Inject} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
+import { Params, ActivatedRoute } from '@angular/router';
+import { switchMap } from 'rxjs/operators';
+import { Location } from '@angular/common';
 import { FeedBack, ContactType } from '../shared/feedback';
+import { flyInOut, expand } from '../animations/app.animation';
+import { FeedbackService } from '../services/feedback.service';
 
 @Component({
   selector: 'app-contact',
   templateUrl: './contact.component.html',
-  styleUrls: ['./contact.component.scss']
+  styleUrls: ['./contact.component.scss'],
+  host:{
+    '[@flyInOut]':'true',
+    'style':'display:block'
+  },
+  animations:[
+    flyInOut(),
+    expand()
+  ]
 })
 export class ContactComponent implements OnInit {
 
+  errMess:string ='';
+  feedbackCopy:FeedBack = new FeedBack;
   feedbackForm!: FormGroup;
   feedback: FeedBack = new FeedBack;
   contactType=ContactType;
@@ -44,8 +58,12 @@ export class ContactComponent implements OnInit {
     },
   };
 
-  constructor(private fb: FormBuilder) {
-    this.createForm(); }
+  constructor(private fb: FormBuilder,
+    private route:ActivatedRoute,
+    private feedbackService : FeedbackService,
+    @Inject('BaseURL') public BaseURL:any) {
+      this.createForm();
+    }
 
   ngOnInit(): void {
   }
@@ -62,7 +80,6 @@ export class ContactComponent implements OnInit {
     });
     this.feedbackForm.valueChanges
       .subscribe(data => this.onValueChanged(data));
-
     this.onValueChanged();
   }
 
@@ -99,6 +116,12 @@ export class ContactComponent implements OnInit {
       message: ''
     });
     this.feedbackFormDirective.resetForm();
+    
+    this.feedbackService.submitFeedback(this.feedback).subscribe(feedback => {
+        this.feedback = null ;this.feedbackCopy = feedback;},
+      ),
+      (errmess: any) => { this.feedback = null ; this.errMess = <any>errmess; };
+
   }
   
 }
